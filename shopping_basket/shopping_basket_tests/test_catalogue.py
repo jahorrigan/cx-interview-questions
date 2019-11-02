@@ -35,7 +35,7 @@ def test_add_new_catalogue_product(base_products_catalogue, product_name, price,
         assert inst.args == exception.args
     else:
         # No exception so test that product has been added
-        assert base_products_catalogue.products[product_name] == price
+        assert base_products_catalogue.products[product_name] == round(price, 2)
         assert base_products_catalogue.product_count == 7
 
 @pytest.mark.parametrize('product_name,exception', [
