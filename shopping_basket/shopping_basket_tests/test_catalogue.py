@@ -1,6 +1,5 @@
 import pytest
-from shopping_basket import Catalogue, DuplicateProductException, InvalidPriceException
-from shopping_basket import ProductDoesNotExistException
+from shopping_basket import *
 
 @pytest.fixture
 def base_products_catalogue():

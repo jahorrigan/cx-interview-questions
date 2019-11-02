@@ -1,6 +1,6 @@
 import pytest
-from shopping_basket import Offers, TriggerVolumeException
-from shopping_basket import ChargeableUnitsException, DuplicateOfferException
+from shopping_basket import Offers, TriggerVolumeException, ChargeableUnitsException 
+from shopping_basket import DuplicateOfferException, OfferDoesNotExistException
 
 @pytest.fixture
 def base_offers_list():
@@ -63,5 +63,5 @@ def test_remove_offer(base_offers_list, offer_name, exception):
         assert inst.args == exception.args
     else:
         # No exception so test that offer has been removed
-        assert offer_name.strip() not in base_offers_list.offer_list.keys()
+        assert offer_name.strip() not in base_offers_list.offers_list.keys()
         assert base_offers_list.offer_count == 1

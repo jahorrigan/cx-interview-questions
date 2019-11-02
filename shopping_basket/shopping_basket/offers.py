@@ -7,6 +7,9 @@ class ChargeableUnitsException(Exception):
 class DuplicateOfferException(Exception):
     pass
 
+class OfferDoesNotExistException(Exception):
+    pass
+
 class Offers:
     def __init__(self):
         # Initialise empty offer list
@@ -39,3 +42,14 @@ class Offers:
             'chargeable_units': round(chargeable_units, 2),
         }
         self.offer_count += 1
+
+    def remove_existing_offer(self, offer_name):
+        offer_name = offer_name.strip()
+        if not offer_name.lower() in [x.lower() for x in self.offers_list.keys()]:
+            # This offer name does not exist
+            raise OfferDoesNotExistException(
+                f'{offer_name} does not exist in offer list'
+            )
+        # This offer is valid and can be removed from the offer list
+        del self.offers_list[offer_name]
+        self.offer_count -= 1
