@@ -4,6 +4,9 @@ class DuplicateProductException(Exception):
 class InvalidPriceException(Exception):
     pass
 
+class ProductDoesNotExistException(Exception):
+    pass
+
 class Catalogue:
     def __init__(self):
         # Initialise empty catalogue
@@ -25,3 +28,14 @@ class Catalogue:
         # This product is valid so store in catalogue
         self.products[product_name] = round(price, 2)
         self.product_count += 1
+
+    def remove_existing_product(self, product_name):
+        product_name = product_name.strip()
+        if not product_name.lower() in [x.lower() for x in self.products.keys()]:
+            # This product name does not exist
+            raise ProductDoesNotExistException(
+                f'{product_name} does not exist in catalogue'
+            )
+        # This product is valid and can be removed from catalogue
+        del self.products[product_name]
+        self.product_count -= 1

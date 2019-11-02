@@ -1,5 +1,6 @@
 import pytest
 from shopping_basket import Catalogue, DuplicateProductException, InvalidPriceException
+from shopping_basket import ProductDoesNotExistException
 
 @pytest.fixture
 def base_products_catalogue():
@@ -38,8 +39,8 @@ def test_add_new_catalogue_product(base_products_catalogue, product_name, price,
         assert base_products_catalogue.product_count == 7
 
 @pytest.mark.parametrize('product_name,exception', [
-    ('Fish Fingers', ProductDoesNotExist(
-        'Fish Fingers do not exist in catalogue')),
+    ('Fish Fingers', ProductDoesNotExistException(
+        'Fish Fingers does not exist in catalogue')),
     ('Biscuits', None)
 ])
 def test_remove_catalogue_product(base_products_catalogue, product_name, exception):
@@ -50,11 +51,11 @@ def test_remove_catalogue_product(base_products_catalogue, product_name, excepti
 
     try:
         base_products_catalogue.remove_existing_product(product_name)
-    except ProductDoesNotExist as inst:
+    except ProductDoesNotExistException as inst:
         # Ensure correct exception type and message
         assert isinstance(inst, type(exception))
         assert inst.args == exception.args
     else:
         # No exception so test that product has been removed
-        assert product_name.strip() in base_products_catalogue.products.keys() == False
+        assert product_name.strip() not in base_products_catalogue.products.keys()
         assert base_products_catalogue.product_count == 5
