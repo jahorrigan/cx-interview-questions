@@ -1,14 +1,6 @@
 import pytest
-from shopping_basket import Offers, TriggerVolumeException, ChargeableUnitsException 
+from shopping_basket import TriggerVolumeException, ChargeableUnitsException 
 from shopping_basket import DuplicateOfferException, OfferDoesNotExistException
-
-@pytest.fixture
-def base_offers_list():
-    """ Returns a base offers list containing two offers """
-    offers_list = Offers()
-    offers_list.add_new_offer('Offer1', 'Baked Beans', 2, 1)
-    offers_list.add_new_offer('Offer2', 'Sardines', 1, 0.75)
-    return offers_list
 
 @pytest.mark.parametrize('offer_name,product_name,trigger_volume,\
     chargeable_units,exception', [
