@@ -1,5 +1,6 @@
 import pytest
-from shopping_basket import Offers
+from shopping_basket import Offers, TriggerVolumeException
+from shopping_basket import ChargeableUnitsException, DuplicateOfferException
 
 @pytest.fixture
 def base_offers_list():
@@ -27,7 +28,7 @@ def test_add_new_offer(base_offers_list, offer_name, product_name,
     assert base_offers_list.offer_count == 2
 
     try:
-        base_offers_list.add_new_offer(product_name, trigger_volume,
+        base_offers_list.add_new_offer(offer_name, product_name, trigger_volume,
             chargeable_units)
     except (TriggerVolumeException, ChargeableUnitsException, 
         DuplicateOfferException) as inst:
@@ -37,6 +38,7 @@ def test_add_new_offer(base_offers_list, offer_name, product_name,
     else:
         # No exception so test that offer has been added
         assert base_offers_list.offers_list[offer_name.strip()] == {
+            'product_name': product_name.strip(),
             'trigger_volume': trigger_volume,
             'chargeable_units': round(chargeable_units, 2)
         }
