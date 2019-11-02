@@ -4,9 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-
+pytest = "==5.2.2"
+pytest-cov = "==2.8.1"
 
 [dev-packages]
+pylint = "==2.4.3"
 
 [requires]
 python_version = "3.7"

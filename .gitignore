@@ -197,3 +197,6 @@ fabric.properties
 
 *.iml
 *.idea
+
+# VSCode
+.vscode/
