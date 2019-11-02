@@ -43,3 +43,25 @@ def test_add_new_offer(base_offers_list, offer_name, product_name,
             'chargeable_units': round(chargeable_units, 2)
         }
         assert base_offers_list.offer_count == 3
+
+@pytest.mark.parametrize('offer_name,exception', [
+    ('Offer10', OfferDoesNotExistException(
+        'Offer10 does not exist in offer list')),
+    ('Offer1', None)
+])
+def test_remove_offer(base_offers_list, offer_name, exception):
+
+    """ Tests the removal of an existing offer """
+
+    assert base_offers_list.offer_count == 2
+
+    try:
+        base_offers_list.remove_existing_offer(offer_name)
+    except OfferDoesNotExistException as inst:
+        # Ensure correct exception type and message
+        assert isinstance(inst, type(exception))
+        assert inst.args == exception.args
+    else:
+        # No exception so test that offer has been removed
+        assert offer_name.strip() not in base_offers_list.offer_list.keys()
+        assert base_offers_list.offer_count == 1
