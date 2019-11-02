@@ -36,3 +36,25 @@ def test_add_new_catalogue_product(base_products_catalogue, product_name, price,
         # No exception so test that product has been added
         assert base_products_catalogue.products[product_name] == price
         assert base_products_catalogue.product_count == 7
+
+@pytest.mark.parametrize('product_name,exception', [
+    ('Fish Fingers', ProductDoesNotExist(
+        'Fish Fingers do not exist in catalogue')),
+    ('Biscuits', None)
+])
+def test_remove_catalogue_product(base_products_catalogue, product_name, exception):
+
+    """ Tests the removal of an existing catalogue product """
+
+    assert base_products_catalogue.product_count == 6
+
+    try:
+        base_products_catalogue.remove_existing_product(product_name)
+    except ProductDoesNotExist as inst:
+        # Ensure correct exception type and message
+        assert isinstance(inst, type(exception))
+        assert inst.args == exception.args
+    else:
+        # No exception so test that product has been removed
+        assert product_name.strip() in base_products_catalogue.products.keys() == False
+        assert base_products_catalogue.product_count == 5
