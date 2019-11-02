@@ -16,7 +16,7 @@ def base_offers_list():
     ('Offer3', 'Biscuits', 3, 0, ChargeableUnitsException(
         'The offer chargeable units cannot be zero')),
     ('Offer2', 'Biscuits', 3, 2, DuplicateOfferException(
-        'The offer trigger volume cannot be zero')),
+        'Offer2 already exists in the offer list')),
     ('Offer3', 'Biscuits', 3, 2, None)
 ])
 def test_add_new_offer(base_offers_list, offer_name, product_name, 
