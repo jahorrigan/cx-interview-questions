@@ -1,0 +1,41 @@
+============================= test session starts ==============================
+platform linux -- Python 3.7.3, pytest-5.2.2, py-1.8.0, pluggy-0.13.0 -- /home/james/.local/share/virtualenvs/shopping_basket-NRZww_gz/bin/python3.7m
+cachedir: .pytest_cache
+rootdir: /home/james/cloudambition/ecs/cx-interview-questions/shopping_basket
+plugins: cov-2.8.1
+collecting ... collected 21 items
+
+shopping_basket_tests/test_basket.py::test_empty_basket PASSED
+shopping_basket_tests/test_basket.py::test_add_new_basket_item[Biscuits-0-exception0] PASSED
+shopping_basket_tests/test_basket.py::test_add_new_basket_item[Biscuits-6-None] PASSED
+shopping_basket_tests/test_basket.py::test_add_new_basket_item[Sardines-3-None] PASSED
+shopping_basket_tests/test_basket.py::test_remove_basket_item[Fish Fingers-exception0] PASSED
+shopping_basket_tests/test_basket.py::test_remove_basket_item[Biscuits-None] PASSED
+shopping_basket_tests/test_basket.py::test_calculate_basket1_discount PASSED
+shopping_basket_tests/test_basket.py::test_calculate_basket2_discount PASSED
+shopping_basket_tests/test_basket.py::test_invalid_basket_discount PASSED
+shopping_basket_tests/test_basket.py::test_negative_basket_discount PASSED
+shopping_basket_tests/test_catalogue.py::test_add_new_catalogue_product[Sardines-1.9-exception0] PASSED
+shopping_basket_tests/test_catalogue.py::test_add_new_catalogue_product[White Bread-0.90-exception1] PASSED
+shopping_basket_tests/test_catalogue.py::test_add_new_catalogue_product[Deodorant-0.99-None] PASSED
+shopping_basket_tests/test_catalogue.py::test_remove_catalogue_product[Fish Fingers-exception0] PASSED
+shopping_basket_tests/test_catalogue.py::test_remove_catalogue_product[Biscuits-None] PASSED
+shopping_basket_tests/test_offers.py::test_add_new_offer[Offer3-Biscuits-0-0.75-exception0] PASSED
+shopping_basket_tests/test_offers.py::test_add_new_offer[Offer3-Biscuits-3-0-exception1] PASSED
+shopping_basket_tests/test_offers.py::test_add_new_offer[Offer2-Biscuits-3-2-exception2] PASSED
+shopping_basket_tests/test_offers.py::test_add_new_offer[Offer3-Biscuits-3-2-None] PASSED
+shopping_basket_tests/test_offers.py::test_remove_offer[Offer10-exception0] PASSED
+shopping_basket_tests/test_offers.py::test_remove_offer[Offer1-None] PASSED
+
+----------- coverage: platform linux, python 3.7.3-final-0 -----------
+Name                           Stmts   Miss  Cover
+--------------------------------------------------
+shopping_basket/__init__.py        3      0   100%
+shopping_basket/basket.py         51      0   100%
+shopping_basket/catalogue.py      24      0   100%
+shopping_basket/offers.py         29      0   100%
+--------------------------------------------------
+TOTAL                            107      0   100%
+
+
+============================== 21 passed in 0.11s ==============================
