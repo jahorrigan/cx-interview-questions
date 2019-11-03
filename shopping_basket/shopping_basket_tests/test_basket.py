@@ -1,5 +1,6 @@
 import pytest
 from shopping_basket import ZeroQuantityException, ItemDoesNotExistException
+from shopping_basket import InvalidBasketException, NegativeBasketException
 
 def test_empty_basket(empty_basket):
     """ Tests the return values from an empty basket """
@@ -68,7 +69,7 @@ def test_remove_basket_item(base_basket_1, item_name, exception):
 def test_calculate_basket1_discount(base_basket_1, base_products_catalogue,
     base_offers_list):
 
-    """ Tests the calculation of basket discount, referring to the catalogue
+    """ Tests the calculation of basket 1 discount, referring to the catalogue
         and offer list for reference """
 
     base_basket_1.calculate_basket_discount(base_products_catalogue,
@@ -80,3 +81,55 @@ def test_calculate_basket1_discount(base_basket_1, base_products_catalogue,
     assert base_basket_1.sub_total == 5.16
     assert base_basket_1.discount == 0.99
     assert base_basket_1.total == 4.17
+
+def test_calculate_basket2_discount(base_basket_2, base_products_catalogue,
+    base_offers_list):
+
+    """ Tests the calculation of basket 2 discount, referring to the catalogue
+        and offer list for reference """
+
+    base_basket_2.calculate_basket_discount(base_products_catalogue,
+        base_offers_list)
+
+    # Test that offers have been applied correctly
+    # No discount on Baked Beans as offer not triggered
+    # 25% off Sardines x 2 so discount = 0.95
+    assert base_basket_2.sub_total == 6.96
+    assert base_basket_2.discount == 0.95
+    assert base_basket_2.total == 6.01
+
+def test_invalid_basket_discount(invalid_basket, base_products_catalogue,
+    base_offers_list):
+
+    """ Tests the calculation of basket discount using basket items that do
+    not exist in product catalogue """
+
+    exception = InvalidBasketException('Invalid basket items do not exist in catalogue')
+
+    try:
+        invalid_basket.calculate_basket_discount(base_products_catalogue,
+            base_offers_list)
+    except InvalidBasketException as inst:
+        # Ensure correct exception type and message
+        assert isinstance(inst, type(exception))
+        assert inst.args == exception.args
+    else:
+        pytest.fail('Expected exception but none raised')
+
+def test_negative_basket_discount(base_basket_1, negative_products_catalogue,
+    base_offers_list):
+
+    """ Tests the calculation of basket discount, and the outcome when a basket total
+    is a negative numeric amount """
+
+    exception = NegativeBasketException('Basket total cannot be negative')
+
+    try:
+        base_basket_1.calculate_basket_discount(negative_products_catalogue,
+            base_offers_list)
+    except NegativeBasketException as inst:
+        # Ensure correct exception type and message
+        assert isinstance(inst, type(exception))
+        assert inst.args == exception.args
+    else:
+        pytest.fail('Expected exception but none raised')
