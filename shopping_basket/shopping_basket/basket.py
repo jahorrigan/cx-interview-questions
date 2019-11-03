@@ -93,5 +93,4 @@ class Basket:
             'sub-total': '£' + str(self.sub_total),
             'discount': '£' + str(self.discount),
             'total': '£' + str(self.total),
-            'message': '',
         }
