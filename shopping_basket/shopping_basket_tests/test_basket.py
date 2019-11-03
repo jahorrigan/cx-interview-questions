@@ -9,33 +9,31 @@ def test_empty_basket(empty_basket):
     assert empty_basket.discount == 0.00
     assert empty_basket.total == 0.00
 
-@pytest.mark.parametrize('product_name,quantity,exception', [
+@pytest.mark.parametrize('item_name,quantity,exception', [
     ('Biscuits', 0, ZeroQuantityException(
         'Item quantity cannot be zero')),
     ('Biscuits', 6, None),
     ('Sardines', 3, None)
 ])
-def test_add_new_basket_item(base_basket_1, product_name, quantity, exception):
+def test_add_new_basket_item(base_basket_1, item_name, quantity, exception):
 
     """ Tests the addition of a new basket item x quantity """
 
-    # The basket starts with 2 individual items and 5 quantity
-    assert len(base_basket_1.items) == 2
+    # The basket starts with 5 total items
     assert base_basket_1.item_count == 5
 
-    # Get existing quantity for item if any so that we can update
-    product_name = product_name.strip()
-    start_quantity = base_basket_1.items[product_name] if product_name \
+    # Get existing quantity for item if any so that we can test update
+    item_name = item_name.strip()
+    start_quantity = base_basket_1.items[item_name] if item_name \
         in base_basket_1.items.keys() else 0
 
     try:
-        base_basket_1.add_new_basket_item(product_name, quantity)
+        base_basket_1.add_new_basket_item(item_name, quantity)
     except ZeroQuantityException as inst:
         # Ensure correct exception type and message
         assert isinstance(inst, type(exception))
         assert inst.args == exception.args
     else:
         # No exception so test that product has been added
-        assert base_basket_1.items[product_name] == start_quantity + quantity
+        assert base_basket_1.items[item_name] == start_quantity + quantity
         assert base_basket_1.item_count == 5 + quantity
-        assert len(base_basket_1.items) == 2
