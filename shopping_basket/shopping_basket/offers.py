@@ -1,7 +1,7 @@
 class TriggerVolumeException(Exception):
     pass
 
-class ChargeableUnitsException(Exception):
+class DiscountUnitsException(Exception):
     pass
 
 class DuplicateOfferException(Exception):
@@ -17,7 +17,7 @@ class Offers:
         self.offer_count = 0
 
     def add_new_offer(self, offer_name, product_name, trigger_volume,
-        chargeable_units):
+        discount_units):
         offer_name = offer_name.strip()
         product_name = product_name.strip()
         if trigger_volume <= 0:
@@ -25,10 +25,10 @@ class Offers:
             raise TriggerVolumeException(
                 f'The offer trigger volume cannot be zero'
             )
-        if chargeable_units <= 0:
+        if discount_units <= 0:
             # Chargeable units must be greater than zero
-            raise ChargeableUnitsException(
-                f'The offer chargeable units cannot be zero'
+            raise DiscountUnitsException(
+                f'The offer discount units cannot be zero'
             )
         if offer_name.lower() in [x.lower() for x in self.offers_list.keys()]:
             # This offer name already exists
@@ -39,7 +39,7 @@ class Offers:
         self.offers_list[offer_name] = {
             'product_name': product_name,
             'trigger_volume': trigger_volume,
-            'chargeable_units': round(chargeable_units, 2),
+            'discount_units': round(discount_units, 2),
         }
         self.offer_count += 1
 
