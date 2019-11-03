@@ -1,5 +1,5 @@
 import pytest
-from shopping_basket import ZeroQuantityException, ProductDoesNotExistException
+from shopping_basket import ZeroQuantityException, ItemDoesNotExistException
 
 def test_empty_basket(empty_basket):
     """ Tests the return values from an empty basket """
@@ -49,6 +49,11 @@ def test_remove_basket_item(base_basket_1, item_name, exception):
 
     assert base_basket_1.item_count == 5
 
+    # Get existing quantity for item if any so that we can test update
+    item_name = item_name.strip()
+    start_quantity = base_basket_1.items[item_name] if item_name \
+        in base_basket_1.items.keys() else 0
+
     try:
         base_basket_1.remove_basket_item(item_name)
     except ItemDoesNotExistException as inst:
@@ -57,5 +62,5 @@ def test_remove_basket_item(base_basket_1, item_name, exception):
         assert inst.args == exception.args
     else:
         # No exception so test that item has been removed
-        assert item_name.strip() not in base_basket_1.items.keys()
-        assert base_basket_1.item_count == 4
+        assert item_name not in base_basket_1.items.keys()
+        assert base_basket_1.item_count == 5 - start_quantity

@@ -1,6 +1,9 @@
 class ZeroQuantityException(Exception):
     pass
 
+class ItemDoesNotExistException(Exception):
+    pass
+
 class Basket:
     def __init__(self):
         # Initialise empty basket
@@ -26,3 +29,14 @@ class Basket:
             self.items[item_name] = quantity
         # Finally update item_count
         self.item_count += quantity
+
+    def remove_basket_item(self, item_name):
+        item_name = item_name.strip()
+        if not item_name.lower() in [x.lower() for x in self.items.keys()]:
+            # This item name does not exist
+            raise ItemDoesNotExistException(
+                f'{item_name} does not exist in basket'
+            )
+        # This item name exists so remove and update item count
+        self.item_count -= self.items[item_name]
+        del self.items[item_name]
