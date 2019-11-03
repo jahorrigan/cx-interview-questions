@@ -17,13 +17,19 @@ To create a virtual environment with development support for testing:
 
 `pipenv install --dev`
 
+## Testing
+
+To run tests and coverage results:
+
+`pytest -v --cov=shopping_basket`
+
 ## Usage
 
 View and run a test script to execute the main features of the library:
 
 `python shopping_example.py`
 
-To include the shoppingbasket library in your script:
+To include the shopping basket library in your script:
 
 `import shopping_basket as sd`
 
@@ -36,6 +42,8 @@ To create an empty catalogue object run:
 `catalogue = sd.Catalogue()`
 
 To add a product and price to the catalogue:
+
+*Parameters: product name, price*
 
 `catalogue.add_new_product('Baked Beans', 0.99)`
 
@@ -58,14 +66,14 @@ To add an offer to the offer list:
 
 *Parameters: offer name, product name, trigger volume, discount_units*
 
-`offers.add_new_offer('Baked Beans', 0.99)`
+`offers.add_new_offer('Offer1', 'Baked Beans', 3, 1)`
 
 *For example: Buy 2 get 1 free would have a trigger volume of 3, and a discount unit of*
 *1. Therefore every 3 items, 1 item is discounted*
 
 To remove an offer from the offer list:
 
-`offers.remove_existing_offer('Baked Beans')`
+`offers.remove_existing_offer('Offer1')`
 
 ***Exceptions***
 - TriggerVolumeException - If a trigger volume to be added is <= 0
