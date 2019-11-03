@@ -64,3 +64,19 @@ def test_remove_basket_item(base_basket_1, item_name, exception):
         # No exception so test that item has been removed
         assert item_name not in base_basket_1.items.keys()
         assert base_basket_1.item_count == 5 - start_quantity
+
+def test_calculate_basket1_discount(base_basket_1, base_products_catalogue,
+    base_offers_list):
+
+    """ Tests the calculation of basket discount, referring to the catalogue
+        and offer list for reference """
+
+    base_basket_1.calculate_basket_discount(base_products_catalogue,
+        base_offers_list)
+
+    # Test that offers have been applied correctly
+    # B2G1F on Baked Beans = discount 0.99 on 4 tins
+    # No offers on Biscuits
+    assert base_basket_1.sub_total == 5.16
+    assert base_basket_1.discount == 0.99
+    assert base_basket_1.total == 4.17
