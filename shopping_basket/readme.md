@@ -95,13 +95,13 @@ To add an item to the basket:
 
 To remove an item from the basket:
 
-`offers.remove_basket_item('Baked Beans')`
+`basket.remove_basket_item('Baked Beans')`
 
 To calculate and return the basket sub-total, discount and total:
 
 *Parameters: catalogue, offers*
 
-`offers.calculate_basket_discount(catalogue, offers)`
+`basket.calculate_basket_discount(catalogue, offers)`
 
 ***Exceptions***
 - ZeroQuantityException - If an item to be added has zero quantity
