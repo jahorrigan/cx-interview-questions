@@ -37,3 +37,25 @@ def test_add_new_basket_item(base_basket_1, item_name, quantity, exception):
         # No exception so test that product has been added
         assert base_basket_1.items[item_name] == start_quantity + quantity
         assert base_basket_1.item_count == 5 + quantity
+
+@pytest.mark.parametrize('item_name,exception', [
+    ('Fish Fingers', ItemDoesNotExistException(
+        'Fish Fingers does not exist in basket')),
+    ('Biscuits', None)
+])
+def test_remove_basket_item(base_basket_1, item_name, exception):
+
+    """ Tests the removal of an existing basket item """
+
+    assert base_basket_1.item_count == 5
+
+    try:
+        base_basket_1.remove_basket_item(item_name)
+    except ItemDoesNotExistException as inst:
+        # Ensure correct exception type and message
+        assert isinstance(inst, type(exception))
+        assert inst.args == exception.args
+    else:
+        # No exception so test that item has been removed
+        assert item_name.strip() not in base_basket_1.items.keys()
+        assert base_basket_1.item_count == 4
